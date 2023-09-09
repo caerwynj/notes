@@ -28,3 +28,11 @@ Need to recompile using 64bit compatible limbo. The runt.h and limbo type descri
 
 Compare 32bit .dis with same 64bit .dis.  Is the only different 
 the desc type descriptor.
+
+
+# 9ferno
+Compiled the same 9ferno repo on arm64 (rpi) amd64, armv7l (rpi), and termux on android arm64.
+
+Could test the same emu with acme-sac to build a snap or flatpak for acme-sac on multiple platforms.
+
+sys->filechan is different between 9ferno and acme-sac emu. Reports typecheck error.

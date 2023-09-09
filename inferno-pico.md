@@ -25,6 +25,39 @@ Add wifi and IP.
 a .dis file that allocates too little memory for a type desc
 will overwrite memory in the pool.
 
+# Pico Plan 9 SDK
+Compile 5c, 5s binary to run on pico.
+plan9 tools build environment for pico.
+u2f for usb bootloader.
+
+Start with pico-sdk blink.
+Convert u2f to bin.
+Use picotool to output blink to board.
+Setup gdb debugging using OpenOCD and SWD.
+Setup UART output.
+Compile using 5a
+Convert using u2f.py
+Copy to tool.
+Compile native inferno using gcc.
+Build an inferno-os kernel image using the Pico SDK and GCC.
+
+Plan is to use Plan 9 compilers to generate arm binary to
+program RP2040.
+
+Get blink code to run on Pico using 5c/5a, etc.
+Implement SPI. Follow example from Ben Eater and
+implement for RPI using 5c.
+ 
+115200 8N1  8 bits, Odd parity, ,1 stop bit.
+GPIO14 ALT0 
+ 
+Try writing to mini-uart register instead of PL11 register.
+ 
+minicom -b 115200 -o -D /dev/serial0
+
+
+lwip has posix sockets interface.  Use emu/port/devip.c and ipif-posix.c to call
+lwip and use the pico_w network stack.
 
 
 
