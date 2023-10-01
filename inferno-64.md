@@ -36,3 +36,39 @@ Compiled the same 9ferno repo on arm64 (rpi) amd64, armv7l (rpi), and termux on 
 Could test the same emu with acme-sac to build a snap or flatpak for acme-sac on multiple platforms.
 
 sys->filechan is different between 9ferno and acme-sac emu. Reports typecheck error.
+
+
+# Recalculate sizes on load
+
+Iinstead of redefining WORD size and pointer to be 64bit, keep WORD at 32bit,
+so dis files remain the same on 32 and 64bit machines.
+
+Instead when loading a module, if on a 64-bit machine, recalculate the memory size for types.
+
+All the mp offsets are double in length.
+fp offsets are calculated differently.
+All immediate values stay the same.
+For double indirect offsets the second indirection is double.
+
+If every type size is based on WORD size. Then double.
+
+Header section data_size could be doubled.
+
+If address mode is small/large offset indirect from MP double the value.
+
+Type descriptor sizes should be doubled.
+
+Review every reference of WORD in libinterp. P(r) would need to change.
+Maybe WORD changes to 8 in libinterp. Must also handle IBY2WD.
+But Limbo stays the same. And the change is handled in the load.
+
+See dec.c for decoding address mode into offsets into memory.
+
+a linear array of bytes offset by a 32 bit pointer.
+
+Really we only want to handle real pointers differently.
+
+Any pointers stored in the data sections for strings, array,s and types
+need to be recalculated.
+grep WORD *.c
+grep IBY2WD *.c

@@ -16,6 +16,29 @@ Add storage device.
 Add wifi and IP.
 
 
+ # Getting Started
+In /os/pico build the uf2 image
+
+	$ mk
+
+Open minicom to the pico plugged into the USB
+
+	$ minicom -b 115200 -o -D /dev/serial0
+
+Launch openocd service and connect using gdb
+
+	$ openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg
+
+	$ gdb-multiarch ipico
+	(gdb) target remote localhost:3333
+	(gdb) load
+	(gdb) monitor reset init
+	(gdb) continue
+
+Once in the console 
+
+	ipico$ ^t^t?
+
 
 
 ## BUGS
@@ -41,7 +64,7 @@ Copy to tool.
 Compile native inferno using gcc.
 Build an inferno-os kernel image using the Pico SDK and GCC.
 
-Plan is to use Plan 9 compilers to generate arm binary to
+Use Plan 9 compilers to generate arm binary to
 program RP2040.
 
 Get blink code to run on Pico using 5c/5a, etc.
@@ -52,13 +75,6 @@ implement for RPI using 5c.
 GPIO14 ALT0 
  
 Try writing to mini-uart register instead of PL11 register.
- 
-minicom -b 115200 -o -D /dev/serial0
-
-
-lwip has posix sockets interface.  Use emu/port/devip.c and ipif-posix.c to call
-lwip and use the pico_w network stack.
-
 
 
 5c/5a/5l Plan 9 compiler can add header for AIF files for RISCOS.
@@ -67,11 +83,6 @@ THere is a version of 8l that can output ELF.
 
 A plan9 toolchain running on Linux to boot native C programs
 and inferno on bare metal ICs.  Plan 9 c lib.  Docker containers including compiler tool chain and std libraries. See plan9cc repo.
-
-A docker container of Inferno-os to run on K8s clusters for serving
-virtual file systems and web services. The inferno 12factor app.
-
-Acme-SAC packaged in snap for easy use on Linux. Also try the windows and Mac package managers.
 
 Native inferno on embedded ARM devices for IoT clusters.
 

@@ -1,3 +1,8 @@
+A docker container of Inferno-os to run on K8s clusters for serving
+virtual file systems and web services. The inferno 12factor app.
+
+Acme-SAC packaged in snap for easy use on Linux. Also try the windows and Mac package managers.
+
 
 - compile inferno in Alpine.
 - statically link to musl C on Alpine.
