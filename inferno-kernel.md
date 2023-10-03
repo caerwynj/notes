@@ -4,6 +4,7 @@ My notes on the inferno architecture. Includes links to Inferno OS manual, espec
 10 which describes a few kernel functions. 
 
 ## Contents
+0. Files
 1. Inferno Sys Interface
 2. Kernel Interface
 3. Kernel Channels
@@ -18,7 +19,15 @@ My notes on the inferno architecture. Includes links to Inferno OS manual, espec
 12. Locks
 13. Interrupts
 14. Clocks
+15. Mount device
+16. Networking
 
+## Files
+
+Everything is a file. The guiding principle of Inferno is to represent everything as a file,
+with a standard set of operations that can be peformed on a file, such as open, read, write,
+seek, create, remove, stat.  Whether these files are local or remote, or they represent 
+data on a disk, in memory, or some device, they should all appear and work just like files.
 
 ## Inferno Sys Interface
 
@@ -169,3 +178,9 @@ the heap pool above.
 This is the kernel method to add a timed interrupt. Calls a platform specific method `timerset()` 
 to enable to interrupt. The interrupt will call `timerintr()` to handle the event.
 
+
+
+## Mount Device
+
+
+## Networks
