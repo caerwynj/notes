@@ -1,0 +1,61 @@
+e0 wm/colors crashes; maybe some unusual display function in limbo. the acme-sac version doesn't crash but the colors are off.
+e0 os sh -i hangs
+e0 getauthinfo hangs; mpinvert()
+e0: man 5 intro segfault in libinterp/string.c; array bounds
+e0: wm/ftree segfault in libtk/canvs.c
+e0: blackbox acmewin game segfaults
+e1: resize of Tk window crashes; flushmemscreen()
+e1: wm/toolbar segfault; cvtup, splitc, insc;   now XSync
+e1: wm/polyhedra bad plot
+e1: wm/mand; doesn't fail but graph wrong.
+e1: wm/snake; segfault after a few secs.
+sqlite: we should be able to edit os_unix.c to call the emu kopen,kread,kwrite and skip locking; lockfs can be used instead. then we can read sqlite databases from e.g. tarfs, 9660srv.
+llama2.c: fileserver
+e1: cvtwf punts but could use amd64 instruction.
+
+FIXED: Permissions on Linux. group permission doesn't allow create/write of files.
+FIXED: write to files, issue with UNIX groups and '#U'.
+FIXED: make new files in Linux directory.
+FIXED: e1 tiny/sh works interactive
+FIXED: e1 sh crashes with array bounds error
+FIXED: e1 t50, t24, t22, t16, t21, echo, ps, pwd, whoami
+FIXED: e1 run svc/httpd/httpd in JIT
+FIXED: e1 ls|wc hangs; due to memory corruption of nprop and mutator, free wasn't called..
+FIXED: e1 mash mashfile works but not when started interactive
+FIXED: e0 crypt key generation spins
+FIXED e0 wm/wm wm/sh  window focus doesn't work. window minimize. could also be the reason wm/toolbar is non-responsive.  this only happens when W() is int. 
+FIXED e0 wm/toolbar non-responsive
+FIXED e1 mash interactive hangs
+FIXED e0 wm/debug crashes
+FIXED e0: plumber using acme-sac plumbing rules; same crash location as parseman, cvtup(). Changed int to ulong in string.c:lenc
+
+Get to the point where acme is stable so I can do AoC in December.
+
+
+The WORD size must align with stubs and frame layouts from limbo compiler.
+currently they are not the same.
+limbo sometimes gives an int 4 or 8 byts in the frame.
+all the *w instructions should work on a WORD which should be int32.
+A pointer is a double word.
+Wherever a WORD is used to refer to a pointer is should be changed to a DWORD.
+This includes all WORD declarations in interp.h
+All WORD declarations in runt.h.
+
+For type desc the map is for 64 bit DWORDS. Alignment is for 64bit DWORDS.
+
+IBY2WD must remain 8. It is the address size interpretation of WORD.
+WORD has two interpretations. As int32 or as pointer.
+
+The frame instruction dst has only 4 bytes instead of 8 bytes avail in the FP.
+Change the limbo compiler to treat pointers as tbig not tint.
+Affects alt, frame, case, what else?
+
+There are potentially lots of places where I'm load/store a 64bit 
+where I should only do a 32bit.. Wasn't ap roblem when wordsize was 64bit.
+But with 32bit word size this problem will corrupt memory.
+
+IDEA to use the additional registers, set all the dis VM REG in the high registers,
+
+For the t16 issue with indx the instruction must allocate a temporary for the destination.
+But currently it allocates an int. It needs to allocate a long.
+

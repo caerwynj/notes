@@ -13,6 +13,7 @@ My notes on the inferno architecture. Includes links to Inferno OS manual, espec
 6. Procs
 7. Kernel Startup
 8. Dis interp
+9. JIT compiler
 9. Memory
 10. Queues
 11. Synchronization
@@ -52,6 +53,10 @@ The inferno interface and the rest of the kernel call the kernel interface for s
 Most of the implementation of kread, kwrite, kopen, etc in sysfile use kernel `Chan` channels
 to devices for I/O.
 
+Note that C libraries called from the dis VM that wish to make system calls, such as libdraw,
+use the `discall.c` interface for `libwrite()` and `libread()`.  These
+routines release and acquire at the VM as needed before calling the kernel interface.
+
 
 ## Kernel Channels
 
@@ -59,9 +64,10 @@ to devices for I/O.
 
 	/os/port/chan.c
 
-`Chan`, One of the central abstractions in the Kernel.  It is the interface to 
- I/O from the kernel to the devices.  It is where the semantics of binds and mounts are implemented.
-It is where all the devices are  unified into a namespace.  The function `namec`
+A fundamental abstraction in the kernel is `Chan`, a channel to a device.  It is the I/O interface 
+ from the kernel to devices that are represented as file systems. 
+Inside the Chan abstraction is where the semantics of binds and mounts are implemented.
+It is where all the devices are unified into a namespace.  The function `namec`
 takes a name and returns a channel in the current namespace.
 
 A kernel `kopen` will use `namec` to open a channel to a device. 
@@ -79,26 +85,24 @@ The data structure links to the method calls for each device that can clone
 and walk channels in its file system structure.
 	
 
-	
-
 ## VMachine
 
 	/os/port/dis.c:disinit
 
-Disinit opens '#c/cons' for stdin, stdout, stderr. Opens first dis program.
-Enters vmachine(). An infinite loop as the inferno scheduler for dis Progs.
+Disinit opens '#c/cons' for stdin, stdout, stderr. It loads the first dis program.
+Enters `vmachine()`. Inside `vmachine()` is an infinite loop as the inferno scheduler for dis Progs.
 
-Release and Acquires the processor. Control of vmachine moves
-between kernel proces as they have work to do.
-
+Whenever I/O needs to occur with a device the vmachine is released and another proc is handed control.
+When the I/O completes the proc will acquire the vmachine where it will wait until it is handed control.
+Control of vmachine moves between kernel proces as they have work to do if a dis prog.
 
 ## Procs 
 
 - [kproc](https://inferno-os.org/inferno/man/10/kproc.html)
 
 Inferno will run a number of kernel Procs, on different cores if available.
-The vmachine can only be running on one Proc at a time. 
-The other Procs are typically waiting on IO.
+The vmachine can only be running within one Proc at a time. 
+The other Procs are typically waiting on I/O.
 
 
 ### Proc Scheduler and Switching
@@ -113,7 +117,7 @@ The other Procs are typically waiting on IO.
 
 	gotolabel()
 
-
+These functions switch between kernel procs in a native kernel. In a virtual kernel the pthreads library is used.
 
 ## Kernel Startup
 
@@ -123,6 +127,16 @@ The other Procs are typically waiting on IO.
 
 	/libinterp/xec.c
 
+The dis interpreter executes instructions from a loaded dis file.
+
+## JIT compiler
+
+    /libinterp/comp-amd64.c
+    /libinterp/comp-arm64.c
+
+The JIT compiler will convert dis instructions into native instructions.
+The compiled instructions replace the loaded dis instructions and the `xec()`
+function will jump to the native instructions instead of interpreting them.
 
 ## Memory
 
