@@ -4,19 +4,30 @@
 - Inferno arm64
 - acme-sac arm64
 - acme-sac amd64
+- Inferno on Termux
+- Inferno on MinGW
+- Wayland windows 
 - Inferno dockerfiles: i386, arm, arm64, amd64
 - Acme-sac dockerfiles: i386, arm, arm64, amd64
 - Inferno on Android Termux (arm64), Fire OS.
 - Inferno snap/flatpak  amd64, arm64, arm, 386
 - Acme-sac snap/flatpak amd64, arm64, arm, 386
-- Inferno JIT: arm, arm64
+- Inferno JIT: arm64
+- Inferno JIT: amd64
+- Inferno JIT: riscv64
 - Inferno Raspberry Pi Native
 - Inferno Pico 
 - Inferno Pico W  with wifi
 - Pico native plan9 compilers build environment
 - Inferno on RiscOS
 - Inferno NDS  Nintendo DS.
-- Embed Sqlite into inferno-os
+- Embed Sqlite into inferno-os; use kread/kwrite to open sqlite databases in inferno namespace.
+- llama2.c styxserver
+- yaml parser
+- RDF parser
+- post quantum encryption algos: ML-KEM, HQC, ML-DSA,SLH-DSA
+- libmp Linux-arm64 asm
+- libmp Linux-arm64 asm
 - Hellaphone
 - Plan9 arm64 compilers on Android.
 - Acme SAC Windows 64bit exe
@@ -34,34 +45,21 @@
 - Benchmark linpack on arm; interpreted versus JIT versus C.
 - Link with arm neon library.
 - DNN inference library. libNC
-
-FreeCAD Inferno computer case &  keyboard design.
-
-PCB design
-- Walk through tutorial from beginning to end. STM32, AVR, 
-- design breakout board
-
-
-JIT dead simple app with emu. How to debug JIT.
-gdb for emu and JIT.
-Test JIT on x86 linux.
-
+- FreeCAD Inferno computer case &  keyboard design.
+- GPU compute cluster on cloud with inferno.
+- python styx server for Keras or PyTorch models.
 
 
 http://doc.cat-v.org/inferno/4th_edition/release_notes/install
 
-GPU compute cluster on cloud with inferno.
 
-python styx server for Keras or PyTorch models.
 
 Use owen as labor exchange to manage job queue
 for building docker images in the k8s cluster instead
 of jenkins.
 
 I have 9p as a kernel module. How do I make use of that?
-Make use of it within docker too.
 What about fuse and ceph? NFS?
-
 
 Backup process: 3 copies, 2 on different media, 1 at a different location.
 
@@ -73,10 +71,8 @@ Cloudfare tcp tunnelling to expose ports from internal network.
 With venti I can identify a version of a file tree with a hash.
 Run plan9port venti.
 
-
 One of the rpi's in the cluster will be taken off to be
 a boot machine for kali, riscos, inferno, p9.
-
 
 Inferno on Smart-Watch casio F-91W.
 SAM L22 microchip: Arm Cortex M0+ 256KB Flash, 32KB RAM, 32MHz.
@@ -84,15 +80,11 @@ USB peripheral, UF2 bootloader.
 12 bit ADC. 5 GPIO pins.
 SERCOM peripheral with support for I2C, SPI, UART.
 
-
 Currently stuck on floating point handling of 0.0/0.0 and
 turning result into string. It doesn't seem to tell that
 a double is Infinity or NaN. It tries to convert to string.
 
-
-
 Compile 9front for rpi
 uboot or 9load rpi.
 9load 9ferno to rpi
-
 
