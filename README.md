@@ -4,7 +4,6 @@
 - Inferno arm64
 - acme-sac arm64
 - acme-sac amd64
-- Inferno on Termux
 - Inferno on MinGW
 - Wayland windows 
 - Inferno dockerfiles: i386, arm, arm64, amd64
@@ -48,6 +47,8 @@
 - FreeCAD Inferno computer case &  keyboard design.
 - GPU compute cluster on cloud with inferno.
 - python styx server for Keras or PyTorch models.
+- limbo implementations of SAT, XCC, CSP from The Art of Computer Programming
+- SPARQL endpoint
 
 
 http://doc.cat-v.org/inferno/4th_edition/release_notes/install
