@@ -7,6 +7,14 @@ e1: wm/polyhedra bad plot
 e1: wm/mand; doesn't fail but graph wrong.
 e1: wm/snake; segfault after a few secs.
 e1: cvtwf punts but could use amd64 instruction.
+e0: csendalt failed tktolimbo with cursor movement
+e0: plumbing is empty file opening in acme
+e0: plumber /chan/plumb.rules empty in acme-lite
+e0: wm/dir double click to open file;  link typecheck WmEdit->fontify().
+e0: sslv2 is deprecated since 2011. Need support for TLS 1.3. Integrate openssl library. 
+e0: charon crash opening www.goto95.com
+e0: charon images render incorrectly
+e0: charon ssl doesn't work
 
 FIXED: llama2.c: fileserver
 FIXED: e0: os sh -i hangs
@@ -28,6 +36,9 @@ FIXED e0 wm/toolbar non-responsive
 FIXED e1 mash interactive hangs
 FIXED e0 wm/debug crashes
 FIXED e0: plumber using acme-sac plumbing rules; same crash location as parseman, cvtup(). Changed int to ulong in string.c:lenc
+FIXED e0: convcs cannot generate /lib/convcs/* string.c:cvtup, splitc, insc
+FIXED e0: charon:EXinternal:build:init cannot load charset converter bad codepage /lib/convcs/iso-8859-1.cp
+FIXED e0: man 5 intro segfault in libinterp/string.c; array bounds
 
 Get to the point where acme is stable so I can do AoC in December.
 
