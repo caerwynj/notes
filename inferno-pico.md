@@ -110,7 +110,7 @@ of the procs.
 There is one vmachine running.  The vmachine can have multiple Prog threads. 
 It is scheduling the work among the threads. Inside dis.c:
 If there are multiple Procs, they are acquiring and releasing the vmachine
-as then need to return execution to the limbo code.
+as they need to return execution to the limbo code.
 
 Interrupts for timers are also running.
 

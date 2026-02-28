@@ -1,7 +1,4 @@
-e0 wm/colors crashes; maybe some unusual display function in limbo. the acme-sac version doesn't crash but the colors are off.
-e0 os sh -i hangs
-e0 getauthinfo hangs; mpinvert()
-e0: man 5 intro segfault in libinterp/string.c; array bounds
+e0: getauthinfo hangs; mpinvert()
 e0: wm/ftree segfault in libtk/canvs.c
 e0: blackbox acmewin game segfaults
 e1: resize of Tk window crashes; flushmemscreen()
@@ -9,10 +6,13 @@ e1: wm/toolbar segfault; cvtup, splitc, insc;   now XSync
 e1: wm/polyhedra bad plot
 e1: wm/mand; doesn't fail but graph wrong.
 e1: wm/snake; segfault after a few secs.
-sqlite: we should be able to edit os_unix.c to call the emu kopen,kread,kwrite and skip locking; lockfs can be used instead. then we can read sqlite databases from e.g. tarfs, 9660srv.
-llama2.c: fileserver
 e1: cvtwf punts but could use amd64 instruction.
 
+FIXED: llama2.c: fileserver
+FIXED: e0: os sh -i hangs
+FIXED: sqlite: we should be able to edit os_unix.c to call the emu kopen,kread,kwrite and skip locking; lockfs can be used instead. then we can read sqlite databases from e.g. tarfs, 9660srv.
+FIXED: e0 wm/colors crashes; maybe some unusual display function in limbo. the acme-sac version doesn't crash but the colors are off.
+FIXED: e0: man 5 intro segfault in libinterp/string.c; array bounds
 FIXED: Permissions on Linux. group permission doesn't allow create/write of files.
 FIXED: write to files, issue with UNIX groups and '#U'.
 FIXED: make new files in Linux directory.
